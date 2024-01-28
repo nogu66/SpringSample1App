@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Springsample1appApplication {
 
-	String[][] data = {
-		{"noname", "no email address", "0"},
-		{"taro", "taro@yamada", "39"},
-		{"hanako", "hanako@flower", "28"},
-		{"sachiko", "sachiko@happy", "17"},
-		{"jiro", "jiro@change", "jiro@change", "6"}
+	DataObject[] data = {
+			new DataObject( "noname", "no email address", 0 ),
+			new DataObject( "taro", "taro@yamada", 39 ),
+			new DataObject( "hanako", "hanako@flower", 28 ),
+			new DataObject( "sachiko", "sachiko@happy", 17 ),
+			new DataObject( "jiro", "jiro@change", 6 )
 	};
 
 	public static void main(String[] args) {
@@ -23,10 +23,45 @@ public class Springsample1appApplication {
 	}
 
 	@RequestMapping("/{num}")
-	public String index(@PathVariable int num) {
+	public DataObject index(@PathVariable int num) {
 		int n = num < 0 ? 0 : num >= data.length ? 0 : num;
-		String[] item = data[n];
-		String msg = "ID=%s. {name: %s, mail: %s, age: %s}";
-		return String.format(msg, num, item[0], item[1], item[2]);
+		return data[n];
+	}
+}
+
+class DataObject {
+	private String name;
+	private String mail;
+	private int age;
+
+	public DataObject(String name, String mail, int age) {
+		super();
+		this.name = name;
+		this.mail = mail;
+		this.age = age;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+	
+	public String getMail() {
+		return this.mail;
+	}
+
+	public int getAge() {
+		return this.age;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
 	}
 }
