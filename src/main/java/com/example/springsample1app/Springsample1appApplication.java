@@ -1,5 +1,8 @@
 package com.example.springsample1app;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.Banner.Mode;
@@ -12,17 +15,17 @@ public class Springsample1appApplication implements ApplicationRunner {
 	public static void main(String[] args) {
 		SpringApplication app = new SpringApplication(Springsample1appApplication.class);
 		app.setBannerMode(Mode.OFF);
+		app.setHeadless(false);
 		app.run(args);
 	}
 
 
 	@Override
 	public void run(ApplicationArguments args) {
-		System.out.println("+--------------------------------------+");
-		System.out.println(" | this is CommoandLoine Runner program |");
-		System.out.println("+--------------------------------------+");
-		System.out.println(args.getOptionNames());
-		System.out.println(args.getNonOptionArgs());
-		System.out.println(args.getSourceArgs());
+		JFrame frame = new JFrame("Spring Boot Swing App");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(300, 200);
+		frame.add(new JLabel("Spring Boot Application"));
+		frame.setVisible(true);
 	}
 }
