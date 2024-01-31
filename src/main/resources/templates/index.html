@@ -9,53 +9,8 @@
 		/>
 	</head>
 	<body class="container">
-		<h1 class="display-4 mb-4">Hello page</h1>
-		<p th:text="${msg}"></p>
-		<div class="h6 alert alert-primary">
-			<form method="post" action=".">
-				<div class="my-2">
-					<input class="form-check-input" type="checkbox" name="check1" />
-					<label class="form-check-label" for="check1">チェック</label>
-				</div>
-				<div class="my-2">
-					<input
-						class="form-check-input"
-						type="radio"
-						name="radio1"
-						value="male"
-					/>
-					<label class="form-check-label" for="radioA">男性</label>
-				</div>
-				<div class="my-2">
-					<input
-						class="form-check-input"
-						type="radio"
-						name="radio1"
-						value="female"
-					/>
-					<label class="form-check-label" for="radioB">女性</label>
-				</div>
-				<div class="my-2">
-					<select class="form-select" name="select1">
-						<option value="Windows">Windows</option>
-						<option value="Mac">Mac</option>
-						<option value="Linux">vLinux</option>
-					</select>
-				</div>
-				<div class="my-2">
-					<select
-						class="form-select"
-						name="select2"
-						slze="4"
-						multiple="multiple"
-					>
-						<option value="Android">Android</option>
-						<option value="iPhone">iPhone</option>
-						<option value="Windows Phone">Windows Phone</option>
-					</select>
-				</div>
-				<input class="btn btn-primary" text="sunbimt" value="Click" />
-			</form>
-		</div>
+		<h1 class="display-4 mb-4">Hello Page</h1>
+		<div class="alert alert-primary">
+			<p th:text="${msg}"></p>
 	</body>
 </html>
