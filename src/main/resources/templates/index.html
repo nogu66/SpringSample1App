@@ -9,17 +9,8 @@
 		/>
 	</head>
 	<body class="conntainer">
-		<h1 class="display-4 mb-4">Hello Page</h1>
-		<ul>
-			{{ #data }}
-			<li>{{ . }}</li>
-			{{ /data }}
-		</ul>
-		<hr />
-		<ul>
-			{{ #data }}
-			<li><b>{{name}}</b>[{{age}}]</li>
-			{{ /data }}
-		</ul>
+		<h1 class="display-4 mb-4" th:text="${title}"></h1>
+		<p th:text="${msg}"></p>
+		<pre th:text="${data}"></pre>
 	</body>
 </html>
