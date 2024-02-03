@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,9 +35,21 @@ public class HelloController {
 
     @RequestMapping(value = "/", method=RequestMethod.POST)
     @Transactional
-    public ModelAndView form(@ModelAttribute("formModel") Person Person, ModelAndView mav) {
-        repository.saveAndFlush(Person);
-        return new ModelAndView("redirect:/");
+    public ModelAndView form(@ModelAttribute("formModel") @Validated Person person, BindingResult result, ModelAndView mav) {
+        ModelAndView res = null;
+        System.out.println(result.getFieldError());
+        if (!result.hasErrors()) {
+            repository.saveAndFlush(person);
+            res = new ModelAndView("redirect:/");
+        } else {
+            mav.setViewName("index");
+            mav.addObject("title", "Hello page");
+            mav.addObject("msg", "sorry, error is occurred...");
+            Iterable<Person> list = repository.findAll();
+            mav.addObject("datalit", list);
+            res = mav;
+        }
+        return res;
     }
 
 

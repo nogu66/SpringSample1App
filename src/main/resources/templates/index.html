@@ -14,6 +14,11 @@
 		<p th:text="${msg}"></p>
 
 		<form method="post" action="/" th:object="${formModel}">
+			<style>
+				.err {
+					color: red;
+				}
+			</style>
 			<div class="mb-3">
 				<label for="name" class="form-label">Name</label>
 				<input
@@ -21,6 +26,11 @@
 					class="form-control"
 					name="name"
 					th:value="*{name}"
+				/>
+				<div
+					th:if="${#fields.detailedErrors('name')}"
+					th:errors="*{name}"
+					th:errorClass="err"
 				/>
 			</div>
 			<div class="mb-3">
@@ -31,10 +41,20 @@
 					name="mail"
 					th:value="*{mail}"
 				/>
+				<div
+					th:if="${#fields.detailedErrors('mail')}"
+					th:errors="*{mail}"
+					th:errorClass="err"
+				/>
 			</div>
 			<div class="mb-3">
 				<label for="age" class="form-label">Age</label>
 				<input type="text" class="form-control" name="age" th:value="*{age}" />
+				<div
+					th:if="${#fields.detailedErrors('age')}"
+					th:errors="*{age}"
+					th:errorClass="err"
+				/>
 			</div>
 			<div class="mb-3">
 				<label for="memo" class="form-label">Memo</label>
@@ -44,6 +64,11 @@
 					name="memo"
 					th:value="*{memo}"
 				></textarea>
+				<div
+					th:if="${#fields.detailedErrors('memo')}"
+					th:errors="*{memo}"
+					th:errorClass="err"
+				/>
 			</div>
 			<input type="submit" class="btn btn-primary" value="Create" />
 		</form>
