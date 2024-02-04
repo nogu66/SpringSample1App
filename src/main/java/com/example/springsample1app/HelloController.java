@@ -16,12 +16,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.springsample1app.repositories.PersonRepository;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 @Controller
 public class HelloController {
 
     @Autowired
     PersonRepository repository;
+
+    @Autowired
+    PersonDAOPersonalImpl dao;
 
     @RequestMapping("/")
     public ModelAndView index(@ModelAttribute("formModel") Person person, ModelAndView mav) {
@@ -30,6 +34,32 @@ public class HelloController {
         mav.addObject("msg", "this is JPA sample data.");
         Iterable<Person> list = repository.findAll();
         mav.addObject("data", list);
+        return mav;
+    }
+
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    public ModelAndView index(ModelAndView mav) {
+        mav.setViewName("find");
+        mav.addObject("msg", "Personのサンプルです。");
+        Iterable<Person> list = dao.getAll();
+        mav.addObject("data", list);
+        return mav;
+    }
+
+    @RequestMapping(value = "/find", method = RequestMethod.POST)
+    public ModelAndView serach(HttpServletRequest request, ModelAndView mav) {
+        mav.setViewName("find");
+        String param = request.getParameter("find_str");
+        if (param == "") {
+            mav = new ModelAndView("redirect:/find");
+        } else {
+            mav.addObject("title", "Find result");
+            mav.addObject("msg", "「" + param + "」の検索結果");
+            mav.addObject("valie", param);
+            Person data = dao.findById(Integer.parseInt(param));
+            Person[] list = new Person[] { data };
+            mav.addObject("data", list);
+        }
         return mav;
     }
 
@@ -85,6 +115,8 @@ public class HelloController {
         repository.deleteById(id);
         return new ModelAndView("redirect:/");
     }
+
+
 
     @PostConstruct
     public void init() {
