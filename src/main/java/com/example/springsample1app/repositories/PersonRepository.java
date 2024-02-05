@@ -16,8 +16,8 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     @Query("SELECT d FROM Person d ORDER BY d.name")
     List<Person> findlAllOrderByName();
 
-    ＠Query("from Person where age >= :min and age < :max")
-    public List<Person> findByAge(@Param("min") int min, @Param("max") int max);
+    @Query("from Person where age >= :min and age < :max")
+    public List<Person> findByAge(@Param("min") int min, @Param("max")int max);
 
     public Optional<Person> findById(Long name);
 }
