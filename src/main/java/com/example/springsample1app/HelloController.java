@@ -33,7 +33,7 @@ public class HelloController {
         mav.setViewName("index");
         mav.addObject("title", "Hello page");
         mav.addObject("msg", "this is JPA sample data.");
-        Iterable<Person> list = repository.findAll();
+        List<Person> list = repository.findlAllOrderByName();
         mav.addObject("data", list);
         return mav;
     }
