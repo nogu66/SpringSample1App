@@ -39,6 +39,12 @@ public class PersonDAOPersonalImpl implements PersonDAO<Person> {
         return (List<Person>) entityManager.createQuery("from Person where name = " + name).getResultList();
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Person> findByAge(int min, int max) {
+        return (List<Person>) entityManager.createNamedQuery("findByAge").setParameter("min", min).setParameter("max", max).getResultList();
+    }
+
     @Override
     public List<Person> find(String fstr) {
         List<Person> list = null;
