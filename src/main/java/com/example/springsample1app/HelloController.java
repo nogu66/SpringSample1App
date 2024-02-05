@@ -33,7 +33,7 @@ public class HelloController {
         mav.setViewName("index");
         mav.addObject("title", "Hello page");
         mav.addObject("msg", "this is JPA sample data.");
-        List<Person> list = repository.findlAllOrderByName();
+        List<Person> list = dao.getAll();
         mav.addObject("data", list);
         return mav;
     }
@@ -54,11 +54,9 @@ public class HelloController {
         if (param == "") {
             mav = new ModelAndView("redirect:/find");
         } else {
-            String[] params = param.split(",");
-            mav.addObject("title", "Find result");
+            mav.addObject("title","Find result");
             mav.addObject("msg", "「" + param + "」の検索結果");
-            mav.addObject("valie", param);
-            List<Person> list = dao.findByAge(Integer.parseInt(params[0]), Integer.parseInt(params[1]));
+            List<Person> list = dao.find(param);
             mav.addObject("data", list);
         }
         return mav;
@@ -117,27 +115,37 @@ public class HelloController {
         return new ModelAndView("redirect:/");
     }
 
+    @RequestMapping(value = "/page/{page}", method = RequestMethod.GET)
+    public ModelAndView index(ModelAndView mav, @PathVariable int page) {
+        mav.setViewName("find");
+        mav.addObject("msg", "Personのサンプルです。");
+        int num = 2; //ページあたりの項目数
+        Iterable<Person> list = dao.getPage(page, num);
+        mav.addObject("data", list);
+        return mav;
+    }
+
 
 
     @PostConstruct
     public void init() {
         // 1つ目のダミーデータを作成
         Person p1 = new Person();
-        p1.setName("taro");
+        p1.setName("タロー");
         p1.setAge(38);
         p1.setMail("taro@yamada");
         repository.saveAndFlush(p1);
 
         // ２つ目のダミーデータを作成
         Person p2 = new Person();
-        p2.setName("hanako");
+        p2.setName("ハナコ");
         p2.setAge(28);
         p2.setMail("hanako@flower");
         repository.saveAndFlush(p2);
 
         // ３つ目のダミーデータを作成
         Person p3 = new Person();
-        p3.setName("sachiko");
+        p3.setName("サチコ");
         p3.setAge(17);
         p3.setMail("sachiko@happy");
         repository.saveAndFlush(p3);
