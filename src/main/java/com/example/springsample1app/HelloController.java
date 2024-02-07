@@ -28,6 +28,12 @@ public class HelloController {
     @Autowired
     PersonDAOPersonalImpl dao;
 
+    @Autowired
+    Post post;
+
+    @Autowired
+    SampleComponent component;
+
     @RequestMapping("/")
     public ModelAndView index(@ModelAttribute("formModel") Person person, ModelAndView mav) {
         mav.setViewName("index");
@@ -122,6 +128,14 @@ public class HelloController {
         int num = 2; //ページあたりの項目数
         Iterable<Person> list = dao.getPage(page, num);
         mav.addObject("data", list);
+        return mav;
+    }
+
+    @RequestMapping("/bean")
+    public ModelAndView bean(ModelAndView mav) {
+        mav.setViewName("bean");
+        mav.addObject("title", "Bean sanple");
+        mav.addObject("msg", component.message());
         return mav;
     }
 
