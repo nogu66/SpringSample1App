@@ -34,6 +34,9 @@ public class HelloController {
     @Autowired
     SampleComponent component;
 
+    @Autowired
+    SampleService service;
+
     @RequestMapping("/")
     public ModelAndView index(@ModelAttribute("formModel") Person person, ModelAndView mav) {
         mav.setViewName("index");
@@ -136,6 +139,7 @@ public class HelloController {
         mav.setViewName("bean");
         mav.addObject("title", "Bean sanple");
         mav.addObject("msg", component.message());
+        mav.addObject("data", new Post[]{service.getPost()});
         return mav;
     }
 
