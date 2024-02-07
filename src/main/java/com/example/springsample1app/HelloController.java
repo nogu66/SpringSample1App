@@ -139,7 +139,7 @@ public class HelloController {
         mav.setViewName("bean");
         mav.addObject("title", "Bean sanple");
         mav.addObject("msg", component.message());
-        mav.addObject("data", service.getAllPosts());
+        mav.addObject("data", service.getLocalPosts());
         return mav;
     }
 
@@ -149,7 +149,7 @@ public class HelloController {
         mav.setViewName("bean");
         mav.addObject("title", "Bean sample.");
         mav.addObject("msg", "get id = " + param);
-        Post post = service.getPost(Integer.parseInt(param));
+        Post post = service.getAndSavePost(Integer.parseInt(param));
         mav.addObject("data", new Post[] { post });
         return mav;
     }
