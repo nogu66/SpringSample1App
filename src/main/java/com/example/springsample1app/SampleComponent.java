@@ -1,11 +1,12 @@
 package com.example.springsample1app;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SampleComponent {
-
-    private String message = "default message";
+    @Value("${samplespp.samplecompoent.message}")
+    private String message;
 
     public SampleComponent() {
         super();
